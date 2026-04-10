@@ -1,0 +1,40 @@
+#include "parser.h"
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int get_file(char **buff, const char *filename) {
+	FILE *file = fopen(filename, "r");
+	if (file == NULL) goto err;
+
+	// Get length of the file
+	fseek(file, 0, SEEK_END);
+	long filesize = ftell(file);
+	if (filesize < 0) goto err_close;
+
+	// Allocate memory for the buffer
+	char *tmp = malloc(filesize+1);
+	if (tmp == NULL) goto err_close;
+	*buff = tmp;
+
+	// Fill the buffer with the file's contents
+	rewind(file);
+	if (fread(*buff, 1, filesize, file) < filesize) goto err_free;
+	(*buff)[filesize] = '\0';
+
+	fclose(file);
+	return 0;
+err_free:
+	free(tmp);
+	*buff = nullptr;
+err_close:
+	fclose(file);
+err:
+	return -1;
+}
+
+int parse(char **buff) {
+	printf("%s", *buff);
+	free(*buff);
+	return 0;
+}
