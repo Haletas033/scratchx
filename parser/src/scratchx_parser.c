@@ -1,4 +1,4 @@
-#include "parser.h"
+#include "scratchx_parser.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -26,7 +26,7 @@ int get_file(char **buff, const char *filename) {
 	return 0;
 err_free:
 	free(tmp);
-	*buff = nullptr;
+	*buff = NULL;
 err_close:
 	fclose(file);
 err:
