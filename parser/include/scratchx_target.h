@@ -3,6 +3,7 @@
 
 #include <stddef.h>
 #include <stdbool.h>
+#include "scratchx_json.h"
 
 // Inclusive of \0
 #define SCRATCHX_ID_LEN 22
@@ -16,37 +17,39 @@ enum scratchx_variable_type {
 
 union scratchx_variable_value {
 	double number;
-	char* string;
+	struct scratchx_string_view string;
 };
 
 struct scratchx_variable {
-	char *name;
 	union scratchx_variable_value value;
 	enum scratchx_variable_type type;
 	char id[SCRATCHX_ID_LEN];
+	struct scratchx_string_view name;
 };
 
 struct scratchx_block {
-	char *opcode;
 	char id[SCRATCHX_ID_LEN];
 	char next[SCRATCHX_ID_LEN];
 	char parent[SCRATCHX_ID_LEN];
+	struct scratchx_key_value_pair *inputs;
+	struct scratchx_key_value_pair *fields;
+	struct scratchx_string_view opcode;
 };
 
 struct scratchx_costume {
-	char *name;
 	int rotation_center_x;
 	int rotation_center_y;
 	char data_format[SCRATCHX_DATA_FORMAT_LEN];
 	char asset_id[SCRATCHX_ASSET_ID_LEN];
+	struct scratchx_string_view name;
 };
 
 struct scratchx_sound {
-	char *name;
 	int rate;
 	int samples;
-	char asset_id[SCRATCHX_ASSET_ID_LEN];
 	char data_format[SCRATCHX_DATA_FORMAT_LEN];
+	char asset_id[SCRATCHX_ASSET_ID_LEN];
+	struct scratchx_string_view name;
 };
 
 struct scratchx_sprite {

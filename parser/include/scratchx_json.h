@@ -9,7 +9,7 @@ This design is used, as the project requires the scratch project's JSON to be re
 #include <stddef.h>
 #include "scratchx_types.h"
 
-struct key_value_pair {
+struct scratchx_key_value_pair {
 	struct scratchx_string_view key;
 	struct scratchx_string_view value;
 };
@@ -20,7 +20,7 @@ struct scratchx_json {
 };
 
 struct scratchx_json scratchx_json_initialize(const char *text);
-int scratchx_get_key_value(struct scratchx_json *json, struct key_value_pair* key_value_buff);
+int scratchx_get_key_value(struct scratchx_json *json, struct scratchx_key_value_pair *key_value_buff);
 int scratchx_enter_value(struct scratchx_json *json);
 void scratchx_json_destroy(struct scratchx_json *json);
 

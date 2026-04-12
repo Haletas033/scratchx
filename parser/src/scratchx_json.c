@@ -25,7 +25,7 @@ int scratchx_enter_value(struct scratchx_json *json) {
 	return json->text[json->pos] != '\0';
 }
 
-int scratchx_get_key_value(struct scratchx_json *json, struct key_value_pair* key_value_buff) {
+int scratchx_get_key_value(struct scratchx_json *json, struct scratchx_key_value_pair *key_value_buff) {
 	scratchx_enter_value(json);
 
 	size_t key_length = 0;

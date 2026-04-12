@@ -37,7 +37,7 @@ err:
 
 int parse(char **buff) {
 	struct scratchx_json json = scratchx_json_initialize(*buff);
-	struct key_value_pair key_value;
+	struct scratchx_key_value_pair key_value;
 
 	while (scratchx_get_key_value(&json, &key_value) == 0) {
 		printf("Key: %.*s | ", (int)key_value.key.length, key_value.key.data);
