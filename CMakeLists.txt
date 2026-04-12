@@ -7,6 +7,10 @@ add_executable(scratchx main.c
         parser/include/scratchx_parser.h
         parser/src/scratchx_parser.c
         parser/include/scratchx_target.h
-        parser/include/scratchx_json.h)
+        parser/include/scratchx_json.h
+        parser/src/scratchx_json.c
+        types/scratchx_types.h)
 
-target_include_directories(scratchx PRIVATE parser/include)
+target_include_directories(scratchx PRIVATE parser/include types)
+
+file(COPY test_jsons DESTINATION ${CMAKE_BINARY_DIR})

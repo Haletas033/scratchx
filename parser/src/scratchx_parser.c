@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "scratchx_json.h"
+
 int get_file(char **buff, const char *filename) {
 	FILE *file = fopen(filename, "r");
 	if (file == NULL) goto err;
@@ -34,7 +36,14 @@ err:
 }
 
 int parse(char **buff) {
-	printf("%s", *buff);
+	struct scratchx_json json = scratchx_json_initialize(*buff);
+	struct key_value_pair key_value;
+
+	while (scratchx_get_key_value(&json, &key_value) == 0) {
+		printf("Key: %.*s | ", (int)key_value.key.length, key_value.key.data);
+		printf("Value: %.*s\n", (int)key_value.value.length, key_value.value.data);
+	}
+
 	free(*buff);
 	return 0;
 }
