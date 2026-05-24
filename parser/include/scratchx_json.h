@@ -9,6 +9,13 @@ This design is used, as the project requires the scratch project's JSON to be re
 #include <stddef.h>
 #include "scratchx_types.h"
 
+#define SCRATCHX_SAFE_GET(JSON, EXPECTED, ERR) ({										     \
+	struct scratchx_key_value_pair curr_pair = {0};										      \
+	scratchx_get_key_value(JSON, &curr_pair);										       \
+	if (curr_pair.key.length != sizeof(EXPECTED) - 1 || strncmp(curr_pair.key.data, EXPECTED, curr_pair.key.length) != 0) goto ERR;	\
+	curr_pair.value;														 \
+})
+
 struct scratchx_key_value_pair {
 	struct scratchx_string_view key;
 	struct scratchx_string_view value;

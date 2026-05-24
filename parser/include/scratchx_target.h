@@ -61,8 +61,8 @@ struct scratchx_sprite {
 	size_t costumes_count;
 	struct scratchx_sound *sounds;
 	size_t sounds_count;
-	char *name;
-	char *tts_language;
+	struct scratchx_string_view name;
+	struct scratchx_string_view tts_language;
 	int default_costume;
 	int volume;
 	int layer_order;

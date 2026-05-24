@@ -54,11 +54,14 @@ int scratchx_get_key_value(struct scratchx_json *json, struct scratchx_key_value
 	const char* value_start = &json->text[json->pos];
 
 	int in_quotes = json->text[json->pos] == '"';
+	int in_array = json->text[json->pos] == '[';
 
-	while (json->text[json->pos] != '\0' && (in_quotes || json->text[json->pos] != '\n' && json->text[json->pos] != ',' && json->text[json->pos] != ']' && json->text[json->pos] != '}')) {
+	while (json->text[json->pos] != '\0' && (in_quotes || !in_array && json->text[json->pos] != '\n' && json->text[json->pos] != ',' && json->text[json->pos] != ']' && json->text[json->pos] != '}' || (in_array && json->text[json->pos] != '{'))) {
 		json->pos++;
 		value_length++;
 		if (json->text[json->pos] == '"') in_quotes = !in_quotes;
+		else if (json->text[json->pos] == '[') in_array = 1;
+		else if (json->text[json->pos] == ']') in_array = 0;
 	}
 	if (json->text[json->pos] == '\0') return 1;
 	key_value_buff->value = scratchx_string_view_create(value_start, value_length);
