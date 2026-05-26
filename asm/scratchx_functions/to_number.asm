@@ -39,6 +39,7 @@ heap_string:
     mov r12, rsi
     mov r13, rdi
 
+    inc rsi
     mov rdi, rsi
 
     call malloc
