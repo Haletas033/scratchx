@@ -4,6 +4,6 @@
 extern double to_number(struct scratchx_string_view sv);
 
 int main() {
-	to_number((struct scratchx_string_view){"Hello", 5});
+	printf("%f", to_number((struct scratchx_string_view){"123.45", 6}));
 	return 0;
 }
