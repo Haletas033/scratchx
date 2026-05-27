@@ -3,9 +3,9 @@
 
 extern double to_number(struct scratchx_string_view sv);
 extern struct scratchx_string_view to_string(double d);
+extern double scratchx_round(double d);
 
 int main() {
-	struct scratchx_string_view string = to_string(123.45);
-	printf("%.*s", (int)string.length, string.data);
+	printf("%f", scratchx_round(-9342.982));
 	return 0;
 }

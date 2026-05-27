@@ -4,7 +4,7 @@ project(scratchx C)
 set(CMAKE_C_STANDARD 11)
 
 enable_language(ASM_NASM)
-file(GLOB ASM_SOURCES "asm/scratchx_functions/*.asm")
+file(GLOB_RECURSE ASM_SOURCES "asm/scratchx_functions/*.asm")
 
 add_executable(scratchx main.c
         parser/include/scratchx_parser.h
@@ -17,6 +17,7 @@ add_executable(scratchx main.c
 )
 
 target_include_directories(scratchx PRIVATE parser/include types)
+target_link_libraries(scratchx -lm)
 
 add_executable(asm_testing
         asm/scratchx_functions/run_asm.c
@@ -24,5 +25,6 @@ add_executable(asm_testing
 )
 
 target_include_directories(asm_testing PRIVATE parser/include types)
+target_link_libraries(asm_testing -lm)
 
 file(COPY test_jsons DESTINATION ${CMAKE_BINARY_DIR})
